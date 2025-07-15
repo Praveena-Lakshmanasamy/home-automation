@@ -3,11 +3,11 @@ import "./Profile.css";
 
 const Profile = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  
+
   const [user, setUser] = useState(
     storedUser || {
       name: "Praveena L",
-      email: "praveena.l2023eee@sece.ac.in",
+      email: "praveena05052006@gmail.com",
       avatar: null,
       bio: "This is a bio about Praveena. Love coding and exploring new technologies.",
       location: "Coimbatore, India",
@@ -18,13 +18,11 @@ const Profile = () => {
   const [newName, setNewName] = useState(user.name);
   const [newBio, setNewBio] = useState(user.bio);
 
-  
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
   const handleEdit = () => {
-    setEditMode(!editMode);
     if (editMode) {
       setUser({
         ...user,
@@ -32,6 +30,7 @@ const Profile = () => {
         bio: newBio,
       });
     }
+    setEditMode(!editMode);
   };
 
   const handleAvatarChange = (e) => {
@@ -62,7 +61,16 @@ const Profile = () => {
           />
         </div>
         <div className="user-info">
-          <h1>{user.name}</h1>
+          {editMode ? (
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              className="name-input"
+            />
+          ) : (
+            <h1>{user.name}</h1>
+          )}
           <p>{user.location}</p>
           <p>{user.email}</p>
         </div>
