@@ -1,0 +1,35 @@
+.dashboard {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  background-color: #1f0a15;
+  color: #ffffff;
+}
+
+.dashboard-header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+.dark-mode .dashboard-header {
+  background-color: #444;
+}
+
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.device-grid .device-card {
+  background-color: #f8cff2;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.dark-mode .device-grid .device-card {
+  background-color: #f7c5eb;
+}

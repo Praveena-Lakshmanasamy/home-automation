@@ -1,0 +1,15 @@
+.notification {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+
+.notification.success {
+    background-color: var(--secondary-color);
+}
+
+.notification.error {
+    background-color: #e74c3c;
+}
