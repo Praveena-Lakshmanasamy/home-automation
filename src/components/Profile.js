@@ -24,11 +24,16 @@ const Profile = () => {
 
   const handleEdit = () => {
     if (editMode) {
+      // save
       setUser({
         ...user,
         name: newName,
         bio: newBio,
       });
+    } else {
+      // entering edit mode → preload current data
+      setNewName(user.name);
+      setNewBio(user.bio);
     }
     setEditMode(!editMode);
   };
