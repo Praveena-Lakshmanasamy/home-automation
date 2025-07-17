@@ -54,5 +54,5 @@ jobs:
             # Go back to the root
             cd ..
 
-            # Restart the apps with PM2
-            pm2 restart all
+            # Restart the apps with PM2 using the full path
+            /home/ubuntu/.nvm/versions/node/v22.17.1/bin/pm2 restart all
