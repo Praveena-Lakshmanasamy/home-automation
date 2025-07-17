@@ -1,0 +1,58 @@
+name: Deploy Full Stack App to EC2
+
+on:
+  push:
+    branches:
+      - main  # Or master, depending on your default branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Use a stable LTS version
+
+      - name: Install Frontend Dependencies & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Install Backend Dependencies
+        run: |
+          cd Backend
+          npm install
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Go to the project folder
+            cd /home/ubuntu/home-automation
+
+            # Get the latest code from GitHub
+            git pull
+
+            # Install frontend dependencies again (just in case)
+            npm install
+
+            # Build the frontend again
+            npm run build
+
+            # Install backend dependencies again (just in case)
+            cd Backend
+            npm install
+            
+            # Go back to the root
+            cd ..
+
+            # Restart the apps with PM2 using the full path
+            /home/ubuntu/.nvm/versions/node/v22.17.1/bin/pm2 restart all
